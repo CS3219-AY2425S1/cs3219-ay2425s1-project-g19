@@ -33,17 +33,25 @@ const UserModelSchema = new Schema({
           type: String,
           required: true,
         },
-        difficulty: {
+        matchedUserId: {
           type: String,
           required: true,
         },
-        category: {
+        questionId: {
           type: String,
           required: true,
         },
         startDate: {
           type: Date,
           default: Date.now, // Set start time to the current date/time by default
+        },
+        codeLanguage: {
+          type:String,
+          default: "javascript"
+        },
+        code: {
+          type: String,
+          default: "// Start coding...",
         },
       },
     ],

@@ -87,6 +87,26 @@ const addNewSession = async (userId, sessionData) => {
   }
 };
 
+const updateSessionHistory = async (userId, roomId, sessionData) => {
+  try {
+
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { _id: userId, "sessionHistory.roomId": roomId }, // Locate user and specific session by roomId
+      { 
+        $set: {
+          "sessionHistory.$.codeLanguage": sessionData.codeLangauge, // Update code language
+          "sessionHistory.$.code": sessionData.code, // Update code data
+        } 
+      },
+      { new: true } // Return the updated document
+    );
+    return updatedUser;
+  } catch (error) {
+    console.error("Error in updateSessionHistory:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   connectToDB,
   createUser,
@@ -98,5 +118,6 @@ module.exports = {
   updateUserById,
   updateUserPrivilegeById,
   deleteUserById,
-  addNewSession
+  addNewSession,
+  updateSessionHistory
 };
